@@ -68,7 +68,7 @@ public class LogicScript : MonoBehaviour
     //Get list of scores
     public PlayerScore[] getScores()
     {
-        string top10 = PlayerPrefs.GetString("top10", null);
+        string top10 = PlayerPrefs.GetString(PlayerScore.PLAYERPREFS_LIST_NAME, null);
         PlayerScore[] scoreList = PlayerScore.deserializeList(top10);
         return scoreList;
     }
@@ -76,6 +76,7 @@ public class LogicScript : MonoBehaviour
     // Determine if final score is a high score
     public bool isHighScore(int score)
     {
+        Debug.Log("isHighScore called");
         PlayerScore[] scores = getScores();
         if (scores.Length < PlayerScore.MAX_STORED_SCORES)
         {

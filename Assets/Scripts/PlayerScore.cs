@@ -48,8 +48,8 @@ public class PlayerScore
     //NMT,13-JBT,15-HJT,19 
     public static PlayerScore[] deserializeList(string raw)
     {
-        Debug.Log("deserializing: " + raw);
-        if (raw == null)
+        Debug.Log("deserializing list: " + raw);
+        if (raw == null || raw == "")
         {
             return new PlayerScore[0];
         }
@@ -66,7 +66,7 @@ public class PlayerScore
     //NMT,16
     public static PlayerScore deserialize(string raw)
     {
-        Debug.Log("deserializing: " + raw);
+        Debug.Log("deserializing single: " + raw);
         string[] parsed = raw.Split(",");
         PlayerScore ps = new PlayerScore(parsed[0], Int32.Parse(parsed[1]));
         return ps;
