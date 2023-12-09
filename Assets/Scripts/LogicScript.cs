@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class LogicScript : MonoBehaviour
 {
-    public int currentScore;
-    public Text currentScoreText;
+    public int playerScore;
+    public Text playerScoreText;
     public GameObject gameOverScreen;
     public GameObject leaderboardScreen;
     public GameObject promptScreen;
@@ -21,8 +21,8 @@ public class LogicScript : MonoBehaviour
     // Increase player score
     public void addScore(int scoreToAdd)
     {
-        currentScore += scoreToAdd;
-        currentScoreText.text = currentScore.ToString();
+        playerScore += scoreToAdd;
+        playerScoreText.text = playerScore.ToString();
         pointSFX.Play();
     }
 
@@ -48,11 +48,11 @@ public class LogicScript : MonoBehaviour
     // Open Game Over Screen and display final score
     public void gameOver()
     {
-        currentScoreText.gameObject.SetActive(false);
+        playerScoreText.gameObject.SetActive(false);
 
-        if (isHighScore(currentScore))
+        if (isHighScore(playerScore))
         {
-            top10Text.text = "Your score of " + currentScore.ToString() + " is in the top ten!";
+            top10Text.text = "Your score of " + playerScore.ToString() + " is in the top ten!";
             promptScreen.SetActive(true);
         }
         else
@@ -60,8 +60,8 @@ public class LogicScript : MonoBehaviour
             gameOverScreen.SetActive(true);
         }
         
-        finalScoreText.text = currentScore.ToString();
-        finalScore = currentScore;
+        finalScoreText.text = playerScore.ToString();
+        finalScore = playerScore;
         Debug.Log("Game Over");
     }
 
