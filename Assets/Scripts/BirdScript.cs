@@ -49,8 +49,11 @@ public class BirdScript : MonoBehaviour
         // Kill bird upon falling off the screen
         if (transform.position.y < -14)
         {
-            logic.gameOver();
-            birdIsAlive = false;
+            if (birdIsAlive == true)
+            {
+                logic.gameOver();
+                birdIsAlive = false;
+            }
             Destroy(gameObject);
         }
     }

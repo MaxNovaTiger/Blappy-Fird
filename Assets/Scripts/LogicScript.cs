@@ -69,6 +69,7 @@ public class LogicScript : MonoBehaviour
     public PlayerScore[] getScores()
     {
         string top10 = PlayerPrefs.GetString(PlayerScore.PLAYERPREFS_LIST_NAME, null);
+        Debug.Log("getScores " + top10);
         PlayerScore[] scoreList = PlayerScore.deserializeList(top10);
         return scoreList;
     }
@@ -96,8 +97,7 @@ public class LogicScript : MonoBehaviour
     public void updateLeaderboard()
     {
         // Get and deserialize top 10 scores array
-        string top10 = PlayerPrefs.GetString(PlayerScore.PLAYERPREFS_LIST_NAME, "X,0-X,0-X,0-X,0-X,0-X,0-X,0-X,0-X,0-X,0");
-        PlayerScore[] scoreList = PlayerScore.deserializeList("NMT,13-JBT,15-HJT,19");
+        PlayerScore[] scoreList = getScores();
 
         // Print scorers and scores in top 10 scores list
         for(int i = 0; i < scoreList.Length; i++)
@@ -108,8 +108,7 @@ public class LogicScript : MonoBehaviour
         PlayerScore current = new PlayerScore(playerInitials.text.ToString(), finalScore);
         Debug.Log("current: " + current.ToString());
         string raw = PlayerPrefs.GetString("highScore", "X,-1");
-        Debug.Log("highScore: " + PlayerPrefs.GetString("highScore", "X,-1"));
-        Debug.Log("raw string: " + raw);
+        Debug.Log("highScore: " + raw);
         PlayerScore old = PlayerScore.deserialize(raw);
         
         if (current.score > old.score)

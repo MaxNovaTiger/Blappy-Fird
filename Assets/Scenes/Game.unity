@@ -2313,7 +2313,7 @@ MonoBehaviour:
   pointSFX: {fileID: 1651670009}
   highScoreText: {fileID: 1758472851}
   top10Text: {fileID: 1178400678}
-  playerInitials: {fileID: 0}
+  playerInitials: {fileID: 997177687}
 --- !u!4 &1651670008
 Transform:
   m_ObjectHideFlags: 0
