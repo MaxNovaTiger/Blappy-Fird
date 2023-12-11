@@ -57,18 +57,24 @@ public class PlayerScore
         List<PlayerScore> scoresList = new List<PlayerScore>();
         for (int i = 0; i < parsed.Length; i++)
         {
+            // Problem identified: deserialize method receiving full string
             PlayerScore ps = deserialize(parsed[i]);
             scoresList.Add(ps);
         }
+
+        Debug.Log("list " + raw + " deserialized");
         return scoresList.ToArray();
     }
 
     //NMT,16
+    // Problem identified: deserialize method receiving full string
     public static PlayerScore deserialize(string raw)
     {
         Debug.Log("deserializing single: " + raw);
         string[] parsed = raw.Split(",");
         PlayerScore ps = new PlayerScore(parsed[0], Int32.Parse(parsed[1]));
+
+        Debug.Log("single " + raw + " deserialized");
         return ps;
     }
 

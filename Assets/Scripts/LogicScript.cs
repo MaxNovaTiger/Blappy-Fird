@@ -65,7 +65,23 @@ public class LogicScript : MonoBehaviour
         Debug.Log("Game Over");
     }
 
-    //Get list of scores
+    // Print serialized and deserialized scores list
+    [ContextMenu("Print stored scores list")]
+    public void printScoresList()
+    {
+        string scores = PlayerPrefs.GetString(PlayerScore.PLAYERPREFS_LIST_NAME, "EXA,12-EXA,9-EXA,3");
+        Debug.Log("Serialized scores list (if EXA then default): " + scores);
+
+        PlayerScore[] scoresList = PlayerScore.deserializeList(scores);
+
+        for (int i = 0; i < scoresList.Length; i++)
+        {
+            Debug.Log("Scorer " + (i + 1).ToString() + ": " + scoresList[i].ToString());
+        }
+    }
+
+    // Get list of scores
+    [ContextMenu("getScores")]
     public PlayerScore[] getScores()
     {
         string top10 = PlayerPrefs.GetString(PlayerScore.PLAYERPREFS_LIST_NAME, null);
@@ -110,7 +126,7 @@ public class LogicScript : MonoBehaviour
         string raw = PlayerPrefs.GetString("highScore", "X,-1");
         Debug.Log("highScore: " + raw);
         PlayerScore old = PlayerScore.deserialize(raw);
-        
+
         if (current.score > old.score)
         {
             Debug.Log("New high score saved: " + current.ToString());
