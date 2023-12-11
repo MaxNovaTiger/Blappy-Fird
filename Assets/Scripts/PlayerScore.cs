@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerScore
 {
     public static readonly int MAX_STORED_SCORES = 10;
-    public static readonly string SCORE_TOUPLE_DELIMITER = "|";
+    public static readonly string SCORE_TOUPLE_DELIMITER = "-";
     public static readonly string SCORE_INITIAL_DELIMITER = ",";
     public static readonly string PLAYERPREFS_LIST_NAME = "top10";
 
