@@ -37,7 +37,7 @@ public class PlayerScore
             }
             else
             {
-                serializedList = serializedList + SCORE_INITIAL_DELIMITER + scores[i].ToString();
+                serializedList = serializedList + SCORE_TOUPLE_DELIMITER + scores[i].ToString();
             }
         }
         Debug.Log("Saving scores list " + serializedList);
@@ -45,7 +45,7 @@ public class PlayerScore
     }
     
 
-    //NMT,13-JBT,15-HJT,19 
+    // Ex. NMT,13-JBT,15-HJT,19 
     public static PlayerScore[] deserializeList(string raw)
     {
         Debug.Log("deserializing list: " + raw);
@@ -57,7 +57,6 @@ public class PlayerScore
         List<PlayerScore> scoresList = new List<PlayerScore>();
         for (int i = 0; i < parsed.Length; i++)
         {
-            // Problem identified: deserialize method receiving full string
             PlayerScore ps = deserialize(parsed[i]);
             scoresList.Add(ps);
         }
@@ -66,8 +65,7 @@ public class PlayerScore
         return scoresList.ToArray();
     }
 
-    //NMT,16
-    // Problem identified: deserialize method receiving full string
+    // Ex. NMT,16
     public static PlayerScore deserialize(string raw)
     {
         Debug.Log("deserializing single: " + raw);

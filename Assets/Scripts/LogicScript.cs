@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -84,7 +85,7 @@ public class LogicScript : MonoBehaviour
     [ContextMenu("getScores")]
     public PlayerScore[] getScores()
     {
-        string top10 = PlayerPrefs.GetString(PlayerScore.PLAYERPREFS_LIST_NAME, null);
+        string top10 = PlayerPrefs.GetString(PlayerScore.PLAYERPREFS_LIST_NAME, "EXA,12-EXA,9-EXA,3");
         Debug.Log("getScores " + top10);
         PlayerScore[] scoreList = PlayerScore.deserializeList(top10);
         return scoreList;
@@ -110,19 +111,31 @@ public class LogicScript : MonoBehaviour
     }
 
     // Update Leaderboard values
+    [ContextMenu("updateLeaderboard")]
     public void updateLeaderboard()
     {
         // Get and deserialize top 10 scores array
         PlayerScore[] scoreList = getScores();
 
+        // Create new playerScore object for current run
+        PlayerScore current = new PlayerScore(playerInitials.text.ToString(), finalScore);
+        Debug.Log("current: " + current.ToString());
+
+        // Decide whether to add score to top 10 list
+        if (isHighScore(finalScore))
+        {
+            scoreList = scoreList.Concat(new PlayerScore[] { current }).ToArray();
+            PlayerScore.saveList(scoreList);
+        }
+
         // Print scorers and scores in top 10 scores list
-        for(int i = 0; i < scoreList.Length; i++)
+        for (int i = 0; i < scoreList.Length; i++)
         {
             Debug.Log("Scorer,Score: " + scoreList[i]);
         }
 
-        PlayerScore current = new PlayerScore(playerInitials.text.ToString(), finalScore);
-        Debug.Log("current: " + current.ToString());
+        // Old high score code, will replace with leaderboard eventually
+        
         string raw = PlayerPrefs.GetString("highScore", "X,-1");
         Debug.Log("highScore: " + raw);
         PlayerScore old = PlayerScore.deserialize(raw);
@@ -144,9 +157,11 @@ public class LogicScript : MonoBehaviour
         Debug.Log("Leaderboard Updated");
     }
 
+    [ContextMenu("clearLeaderboard")]
     public void clearLeaderboard()
     {
         PlayerPrefs.DeleteKey("highScore");
+        PlayerPrefs.DeleteKey(PlayerScore.PLAYERPREFS_LIST_NAME);
         highScoreText.text = "No entries";
     }
 }
@@ -159,8 +174,8 @@ public class LogicScript : MonoBehaviour
  */
 
 /** Current Objectives
- * 2. Store multiple high scores
- * 4. Handle edge condition: more than 10 high scores
- * 5. Sort multiple high scores
- * 6. Display multiple high scores
+ * 1. Store multiple high scores
+ * 2. Handle edge condition: more than 10 high scores
+ * 3. Sort multiple high scores
+ * 4. Display multiple high scores
  */
