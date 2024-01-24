@@ -164,6 +164,21 @@ public class LogicScript : MonoBehaviour
         PlayerPrefs.DeleteKey(PlayerScore.PLAYERPREFS_LIST_NAME);
         highScoreText.text = "No entries";
     }
+
+    // Test the sortScores method
+    [ContextMenu("sortScores")]
+    public void testSortScores()
+    {
+        Debug.Log("Sorting: " + PlayerPrefs.GetString(PlayerScore.PLAYERPREFS_LIST_NAME));
+        List<PlayerScore> sorted = PlayerScore.sortScores(PlayerScore.deserializeList(PlayerPrefs.GetString(PlayerScore.PLAYERPREFS_LIST_NAME)).ToList());
+        string sortedString = "";
+        foreach (var score in sorted)
+        {
+            sortedString = sortedString + score.ToString() + "|";
+        }
+
+        Debug.Log("Sorted: " + sortedString);
+    }
 }
 
 /** Player experience
@@ -174,8 +189,8 @@ public class LogicScript : MonoBehaviour
  */
 
 /** Current Objectives
- * 1. Store multiple high scores
- * 2. Handle edge condition: more than 10 high scores
+ * 1. Store multiple high scores (done)
+ * 2. Handle edge condition: more than 10 high scores (done)
  * 3. Sort multiple high scores
  * 4. Display multiple high scores
  */

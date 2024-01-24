@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerScore
@@ -76,8 +77,9 @@ public class PlayerScore
         return ps;
     }
 
-    //public static List<PlayerScore> sort(List<PlayerScore> scoreList)
-    //{
-    //    return scoreList.Sort((x, y) => int.Compare(x.score,y.score));
-    //}
+    public static List<PlayerScore> sortScores(List<PlayerScore> scoreList)
+    {
+        scoreList.Sort((x, y) => y.score.CompareTo(x.score));
+        return scoreList;
+    }
 }
